@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priya Goswami — Cloud &amp; ML Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0F1A;
+    --panel:#121829;
+    --panel-2:#161f36;
+    --line:#232d47;
+    --text:#E9ECF5;
+    --muted:#8A93AC;
+    --accent:#5B8DEF;
+    --accent-2:#4FD1C5;
+    --amber:#F2B84B;
+    --radius:10px;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(91,141,239,0.10), transparent 40%),
+      radial-gradient(circle at 85% 0%, rgba(79,209,197,0.08), transparent 40%),
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size:auto, auto, 44px 44px, 44px 44px;
+    pointer-events:none;
+    z-index:0;
+  }
+  h1,h2,h3,.mono{font-family:'Space Grotesk',sans-serif;}
+  code, .code, .terminal, .tag, .cmd{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+  ::selection{background:var(--accent);color:#03060d;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent-2);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6vw;
+    background:rgba(11,15,26,0.72);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:transform .4s ease;
+  }
+  .logo{
+    font-weight:700; font-size:1.05rem; letter-spacing:0.02em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-2); box-shadow:0 0 10px var(--accent-2); animation:blink 1.6s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+  .navlinks{display:flex; gap:28px; font-size:0.88rem; color:var(--muted);}
+  .navlinks a{text-decoration:none; position:relative; padding:4px 0; transition:color .25s;}
+  .navlinks a:hover{color:var(--text);}
+  .navlinks a::after{
+    content:""; position:absolute; left:0; bottom:-2px; height:1px; width:0%;
+    background:var(--accent-2); transition:width .3s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+  .navlinks .idx{color:var(--accent-2); margin-right:4px; font-family:'JetBrains Mono',monospace; font-size:0.78rem;}
+  .navlinks a.active{color:var(--accent-2);}
+  .navlinks a.active::after{width:100%;}
+  .navtoggle{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:6px;padding:6px 10px;font-size:1rem;}
+
+  section{position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; padding:110px 6vw 40px; scroll-margin-top:90px;}
+  @media (min-width:1200px){section{padding-left:0;padding-right:0;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:48px;
+    align-items:center;
+    padding-top:120px;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace; font-size:0.76rem; color:var(--accent-2);
+    border:1px solid var(--line); padding:6px 12px; border-radius:100px;
+    background:rgba(79,209,197,0.06);
+    margin-bottom:22px;
+  }
+  .eyebrow .pulse{width:6px;height:6px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 8px var(--accent-2);}
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.8rem);
+    line-height:1.05;
+    margin:0 0 18px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .grad{
+    background:linear-gradient(100deg, var(--accent), var(--accent-2));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{
+    color:var(--muted); font-size:1.05rem; max-width:46ch; margin-bottom:32px;
+  }
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.92rem;
+    padding:13px 24px; border-radius:8px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    border:1px solid transparent; cursor:pointer;
+  }
+  .btn-primary{background:var(--accent); color:#03060d;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(91,141,239,0.35);}
+  .btn-ghost{border-color:var(--line); color:var(--text); background:transparent;}
+  .btn-ghost:hover{border-color:var(--accent-2); color:var(--accent-2); transform:translateY(-2px);}
+
+  /* terminal */
+  .term{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+    overflow:hidden;
+    animation:floaty 6s ease-in-out infinite;
+  }
+  @keyframes floaty{0%,100%{transform:translateY(0px);}50%{transform:translateY(-10px);}}
+  .term-bar{
+    display:flex; align-items:center; gap:7px;
+    padding:11px 14px; background:var(--panel-2); border-bottom:1px solid var(--line);
+  }
+  .term-bar span{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .term-bar span:nth-child(1){background:#ff5f57;}
+  .term-bar span:nth-child(2){background:#febc2e;}
+  .term-bar span:nth-child(3){background:#28c840;}
+  .term-bar small{margin-left:auto; color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:0.72rem;}
+  .term-body{
+    padding:22px 20px; font-family:'JetBrains Mono',monospace; font-size:0.86rem; min-height:280px;
+    color:#c9d1e6;
+  }
+  .term-body .line{margin-bottom:6px; white-space:pre-wrap;}
+  .term-body .prompt{color:var(--accent-2);}
+  .term-body .path{color:var(--amber);}
+  .term-body .out{color:var(--muted);}
+  .caret{display:inline-block; width:8px; height:1em; background:var(--accent-2); vertical-align:text-bottom; animation:blink 1s infinite;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:36px;}
+  .sec-head .tag{color:var(--accent-2); font-size:0.82rem; letter-spacing:0.06em;}
+  .sec-head h2{font-size:clamp(1.7rem,3vw,2.3rem); margin:0; font-weight:600;}
+  .sec-head .rule{flex:1; height:1px; background:var(--line);}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.3fr 0.7fr; gap:40px;}
+  .about-grid p{color:var(--muted); font-size:1rem;}
+  .about-grid p strong{color:var(--text); font-weight:600;}
+  .infocard{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px;
+  }
+  .infocard .row{display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px dashed var(--line); font-size:0.88rem;}
+  .infocard .row:last-child{border-bottom:none;}
+  .infocard .row span:first-child{color:var(--muted);}
+  .infocard .row span:last-child{font-family:'JetBrains Mono',monospace; color:var(--accent-2); text-align:right;}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:16px;}
+  .skillcard{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px; transition:border-color .25s ease, transform .25s ease;
+  }
+  .skillcard:hover{border-color:var(--accent); transform:translateY(-4px);}
+  .skillcard .cmd{color:var(--accent-2); font-size:0.78rem; margin-bottom:10px; display:block;}
+  .skillcard h3{margin:0 0 12px; font-size:1.02rem;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace; font-size:0.74rem; padding:5px 10px;
+    background:var(--panel-2); border:1px solid var(--line); border-radius:100px; color:var(--muted);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .proj{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px; margin-bottom:22px; position:relative; overflow:hidden;
+    transition:border-color .25s ease, transform .25s ease;
+  }
+  .proj:hover{border-color:var(--accent-2); transform:translateY(-3px);}
+  .proj::before{
+    content:attr(data-n); position:absolute; right:18px; top:8px;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:5rem;
+    color:rgba(255,255,255,0.03); line-height:1;
+  }
+  .proj h3{margin:0 0 6px; font-size:1.25rem; padding-right:70px;}
+  .proj .stack{margin:10px 0 14px; display:flex; flex-wrap:wrap; gap:8px;}
+  .proj ul{margin:0 0 16px; padding-left:18px; color:var(--muted); font-size:0.93rem;}
+  .proj li{margin-bottom:6px;}
+  .proj-links{display:flex; gap:10px; flex-wrap:wrap;}
+  .proj-link{
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:'JetBrains Mono',monospace; font-size:0.78rem;
+    color:var(--accent-2); text-decoration:none;
+    border:1px solid var(--line); padding:8px 14px; border-radius:7px;
+    transition:border-color .25s ease, color .25s ease, transform .25s ease;
+  }
+  .proj-link:hover{border-color:var(--accent-2); transform:translateY(-2px);}
+  .proj-link.demo{color:var(--amber);}
+
+  /* ---------- EXPERIENCE / TIMELINE ---------- */
+  .timeline{border-left:1px solid var(--line); padding-left:28px; margin-left:6px;}
+  .tl-item{position:relative; padding-bottom:34px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:""; position:absolute; left:-33px; top:4px; width:11px; height:11px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--accent-2);
+  }
+  .tl-item .when{font-family:'JetBrains Mono',monospace; font-size:0.76rem; color:var(--accent-2); margin-bottom:4px; display:block;}
+  .tl-item h3{margin:0 0 4px; font-size:1.08rem;}
+  .tl-item .org{color:var(--muted); font-size:0.9rem; margin-bottom:8px; display:block;}
+  .tl-item ul{color:var(--muted); font-size:0.92rem; margin:0; padding-left:18px;}
+
+  /* ---------- CERTS ---------- */
+  .cert-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px;}
+  .cert{
+    display:flex; align-items:flex-start; gap:12px;
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px;
+  }
+  .cert .ico{
+    width:34px; height:34px; flex:0 0 34px; border-radius:8px;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    display:flex; align-items:center; justify-content:center; font-weight:700; color:#03060d; font-size:0.8rem;
+  }
+  .cert h4{margin:0 0 3px; font-size:0.93rem;}
+  .cert span{color:var(--muted); font-size:0.8rem;}
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    text-align:center; padding:90px 6vw 60px;
+  }
+  .contact h2{font-size:clamp(2rem,4vw,2.8rem); margin-bottom:14px;}
+  .contact p{color:var(--muted); max-width:50ch; margin:0 auto 34px;}
+  .contact-links{display:flex; justify-content:center; gap:16px; flex-wrap:wrap;}
+  footer{
+    text-align:center; padding:26px; color:var(--muted); font-size:0.8rem;
+    border-top:1px solid var(--line); font-family:'JetBrains Mono',monospace;
+  }
+
+  @media (max-width:860px){
+    nav{flex-wrap:wrap; row-gap:12px; padding:14px 5vw;}
+    .navlinks{
+      display:flex; flex-wrap:wrap; gap:14px 18px; width:100%;
+      justify-content:center; font-size:0.78rem;
+    }
+    .navtoggle{display:none;}
+    .hero{grid-template-columns:1fr; padding-top:150px;}
+    .about-grid{grid-template-columns:1fr;}
+    section{padding-top:110px; scroll-margin-top:130px;}
+  }
+  @media (max-width:420px){
+    .navlinks{gap:10px 14px; font-size:0.72rem;}
+    .navlinks .idx{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="logo"><span class="dot"></span>priya.dev</div>
+  <div class="navlinks">
+    <a href="#about"><span class="idx">01</span>About</a>
+    <a href="#skills"><span class="idx">02</span>Skills</a>
+    <a href="#projects"><span class="idx">03</span>Projects</a>
+    <a href="#experience"><span class="idx">04</span>Experience</a>
+    <a href="#certs"><span class="idx">05</span>Certifications</a>
+    <a href="#contact"><span class="idx">06</span>Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div>
+    <div class="eyebrow"><span class="pulse"></span> Open to internships &amp; entry-level roles</div>
+    <h1>Building cloud-native<br> apps with a bit of <span class="grad">machine learning</span> on top.</h1>
+    <p class="lead">I'm Priya Goswami, a B.Tech Computer Science student specialising in Cloud Computing &amp; ML. I turn ideas into working Flask/Django apps, voice-driven tools, and clean data pipelines.</p>
+    <div class="cta-row">
+      <a href="#projects" class="btn btn-primary">See my projects →</a>
+      <a href="mailto:goswami123priya@gmail.com" class="btn btn-ghost">Say hello</a>
+    </div>
+  </div>
+
+  <div class="term">
+    <div class="term-bar"><span></span><span></span><span></span><small>priya@portfolio: ~</small></div>
+    <div class="term-body" id="termBody"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-head reveal"><span class="tag">01 //</span><h2>About</h2><div class="rule"></div></div>
+  <div class="about-grid">
+    <div class="reveal">
+      <p>I'm currently pursuing my <strong>B.Tech in Computer Science (Cloud Computing &amp; Machine Learning)</strong> at Babu Banarasi Das University, Lucknow, graduating in 2027. My foundation is in Python, SQL, and data structures, and I like building things that actually run end-to-end — from database schema to a working UI.</p>
+      <p>Most recently I completed a virtual Generative AI internship with the <strong>IBM Developer Skills Network</strong>, and I've been steadily stacking certifications in Python, data analysis, and web development while shipping two full-stack student projects on the side.</p>
+      <p>Outside of code, I care about clear communication and steady teamwork — the kind that makes a project easy to hand off, not just easy to build.</p>
+    </div>
+    <div class="infocard reveal">
+      <div class="row"><span>Location</span><span>Lucknow, UP, IN</span></div>
+      <div class="row"><span>Degree</span><span>B.Tech CSE</span></div>
+      <div class="row"><span>CGPA</span><span>8.0 / 10</span></div>
+      <div class="row"><span>Graduating</span><span>2027</span></div>
+      <div class="row"><span>Email</span><span><a href="mailto:goswami123priya@gmail.com">goswami123priya@gmail.com</a></span></div>
+      <div class="row"><span>GitHub</span><span><a href="https://github.com/Priyagoswami30" target="_blank" rel="noopener">Priyagoswami30</a></span></div>
+      <div class="row"><span>LinkedIn</span><span><a href="https://www.linkedin.com/in/priya-goswami30/" target="_blank" rel="noopener">priya-goswami30</a></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-head reveal"><span class="tag">02 //</span><h2>Skills</h2><div class="rule"></div></div>
+  <div class="skills-grid">
+    <div class="skillcard reveal">
+      <span class="cmd">$ languages --list</span>
+      <h3>Languages</h3>
+      <div class="chips"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Basic Java</span></div>
+    </div>
+    <div class="skillcard reveal">
+      <span class="cmd">$ pip list | data</span>
+      <h3>Data &amp; Libraries</h3>
+      <div class="chips"><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Matplotlib</span><span class="chip">Data Cleaning</span><span class="chip">Data Viz</span></div>
+    </div>
+    <div class="skillcard reveal">
+      <span class="cmd">$ show databases</span>
+      <h3>Databases</h3>
+      <div class="chips"><span class="chip">MongoDB</span><span class="chip">MySQL</span></div>
+    </div>
+    <div class="skillcard reveal">
+      <span class="cmd">$ npm run web</span>
+      <h3>Web Technologies</h3>
+      <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span></div>
+    </div>
+    <div class="skillcard reveal">
+      <span class="cmd">$ import framework</span>
+      <h3>Frameworks</h3>
+      <div class="chips"><span class="chip">Flask</span><span class="chip">Django</span></div>
+    </div>
+    <div class="skillcard reveal">
+      <span class="cmd">$ git log --core</span>
+      <h3>Core &amp; Tools</h3>
+      <div class="chips"><span class="chip">DSA (C)</span><span class="chip">DBMS</span><span class="chip">Git</span><span class="chip">GitHub</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-head reveal"><span class="tag">03 //</span><h2>Projects</h2><div class="rule"></div></div>
+
+  <div class="proj reveal" data-n="01">
+    <h3>AI Virtual Assistant for Student Management</h3>
+    <div class="stack"><span class="chip">Django</span><span class="chip">MongoDB</span><span class="chip">NLP</span><span class="chip">pyttsx3</span></div>
+    <ul>
+      <li>Voice-controlled student management system built around NLP techniques.</li>
+      <li>Speech recognition and text-to-speech powered by pyttsx3.</li>
+      <li>Django backend with MongoDB schemas designed for the student collection.</li>
+      <li>Record operations (add, update, search) automated entirely through voice commands.</li>
+    </ul>
+  </div>
+
+  <div class="proj reveal" data-n="02">
+    <h3>Student Management System (Web Application)</h3>
+    <div class="stack"><span class="chip">Flask</span><span class="chip">MongoDB</span><span class="chip">REST API</span><span class="chip">HTML/CSS</span></div>
+    <ul>
+      <li>Full CRUD web app for managing student records.</li>
+      <li>Flask backend with MongoDB for persistent storage.</li>
+      <li>REST API returning student data in JSON format.</li>
+      <li>Form-validated frontend built with HTML and CSS.</li>
+    </ul>
+    <div class="proj-links">
+      <a class="proj-link" href="https://github.com/Priyagoswami30/Student-management-system-project" target="_blank" rel="noopener">↗ View on GitHub</a>
+    </div>
+  </div>
+
+  <div class="proj reveal" data-n="03">
+    <h3>Tic Tac Toe</h3>
+    <div class="stack"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span></div>
+    <ul>
+      <li>Two-player Tic Tac Toe with automatic winner and draw detection.</li>
+      <li>Blocks moves on filled cells and locks the board once the game ends.</li>
+      <li>One-click restart that fully resets game state.</li>
+      <li>Built with vanilla JavaScript — no external libraries.</li>
+    </ul>
+    <div class="proj-links">
+      <a class="proj-link" href="https://github.com/Priyagoswami30/Tic-tac-toe" target="_blank" rel="noopener">↗ View on GitHub</a>
+      <a class="proj-link demo" href="https://tic-tac-toetic.onrender.com" target="_blank" rel="noopener">▶ Live demo</a>
+    </div>
+  </div>
+
+  <div class="proj reveal" data-n="04">
+    <h3>Student Smart Registration Form</h3>
+    <div class="stack"><span class="chip">HTML5</span><span class="chip">CSS3</span></div>
+    <ul>
+      <li>Responsive registration form collecting name, email, roll number, phone, and address.</li>
+      <li>Required-field validation with a card-style layout and gradient background.</li>
+      <li>Hover and focus micro-interactions on every input.</li>
+      <li>Adapts cleanly across desktop, tablet, and mobile.</li>
+    </ul>
+    <div class="proj-links">
+      <a class="proj-link" href="https://github.com/Priyagoswami30/Student-Smart-Registration-Form-" target="_blank" rel="noopener">↗ View on GitHub</a>
+      <a class="proj-link demo" href="https://student-smart-registration-form.onrender.com" target="_blank" rel="noopener">▶ Live demo</a>
+    </div>
+  </div>
+
+  <div class="proj reveal" data-n="05">
+    <h3>Image Gallery</h3>
+    <div class="stack"><span class="chip">HTML</span><span class="chip">CSS</span></div>
+    <ul>
+      <li>Grid-based responsive image gallery layout.</li>
+      <li>Pure HTML/CSS build with no JavaScript dependency.</li>
+    </ul>
+    <div class="proj-links">
+      <a class="proj-link" href="https://github.com/Priyagoswami30/Image-Gallery" target="_blank" rel="noopener">↗ View on GitHub</a>
+    </div>
+  </div>
+
+  <div class="reveal" style="text-align:center; margin-top:10px;">
+    <a class="btn btn-ghost" href="https://github.com/Priyagoswami30?tab=repositories" target="_blank" rel="noopener">See all repositories on GitHub →</a>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-head reveal"><span class="tag">04 //</span><h2>Experience</h2><div class="rule"></div></div>
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <span class="when">FEB 2026 — MAR 2026</span>
+      <h3>Virtual Internship — Generative AI</h3>
+      <span class="org">IBM Developer Skills Network (Virtual)</span>
+      <ul>
+        <li>Built understanding of Generative AI concepts and their real-world applications.</li>
+        <li>Explored modern AI tools and technologies hands-on.</li>
+        <li>Completed practical learning modules and assignments end to end.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="sec-head reveal"><span class="tag">05 //</span><h2>Certifications</h2><div class="rule"></div></div>
+  <div class="cert-grid">
+    <div class="cert reveal"><div class="ico">WD</div><div><h4>Web Development Basics</h4><span>IBM SkillsBuild</span></div></div>
+    <div class="cert reveal"><div class="ico">DA</div><div><h4>Data Analysis with Python</h4><span>IBM Cognitive Class</span></div></div>
+    <div class="cert reveal"><div class="ico">PY</div><div><h4>Programming with Python</h4><span>IBM (Allsoft)</span></div></div>
+    <div class="cert reveal"><div class="ico">CF</div><div><h4>CodeForge</h4><span>IEEE Computational Intelligence Society</span></div></div>
+    <div class="cert reveal"><div class="ico">HK</div><div><h4>Hackathon Participation</h4><span>Coding Blocks</span></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <span class="tag reveal" style="color:var(--accent-2)">06 // Get in touch</span>
+  <h2 class="reveal">Let's build something together.</h2>
+  <p class="reveal">Open to internships, freshers roles, and collaborative student projects around cloud, ML, and full-stack web.</p>
+  <div class="contact-links reveal">
+    <a href="mailto:goswami123priya@gmail.com" class="btn btn-primary">Email me</a>
+    <a href="tel:+919044077633" class="btn btn-ghost">+91 90440 77633</a>
+    <a href="https://www.linkedin.com/in/priya-goswami30/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+    <a href="https://github.com/Priyagoswami30" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Priya Goswami — built with HTML, CSS &amp; JS
+</footer>
+
+<script>
+  // Active nav link on scroll (scroll-spy)
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.navlinks a');
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute('id');
+      const link = document.querySelector('.navlinks a[href="#' + id + '"]');
+      if(!link) return;
+      if(entry.isIntersecting){
+        navAnchors.forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, {rootMargin: '-40% 0px -50% 0px', threshold: 0});
+  sections.forEach(s => spy.observe(s));
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el => io.observe(el));
+
+  // Terminal typing effect
+  const termLines = [
+    {p:"priya@dev", path:"~", cmd:"whoami"},
+    {out:"Priya Goswami — Cloud Computing & ML student"},
+    {p:"priya@dev", path:"~", cmd:"cat education.txt"},
+    {out:"B.Tech CSE, Babu Banarasi Das University · CGPA 8.0/10"},
+    {p:"priya@dev", path:"~", cmd:"ls skills/"},
+    {out:"python  sql  flask  django  mongodb  git"},
+    {p:"priya@dev", path:"~", cmd:"./run_projects.sh"},
+    {out:"[ok] voice-assistant   [ok] student-management-system"},
+    {p:"priya@dev", path:"~", cmd:"echo $STATUS"},
+    {out:"available for internships ✓"},
+  ];
+
+  const termBody = document.getElementById('termBody');
+  let li = 0, ci = 0;
+
+  function typeNext(){
+    if(li >= termLines.length){
+      const caret = document.createElement('span');
+      caret.className = 'caret';
+      termBody.appendChild(caret);
+      return;
+    }
+    const item = termLines[li];
+    const lineEl = document.createElement('div');
+    lineEl.className = 'line';
+    termBody.appendChild(lineEl);
+
+    if(item.out){
+      lineEl.innerHTML = '<span class="out">' + item.out + '</span>';
+      li++;
+      setTimeout(typeNext, 260);
+      return;
+    }
+
+    const prefix = '<span class="prompt">' + item.p + '</span> <span class="path">' + item.path + '</span> $ ';
+    ci = 0;
+    function typeChar(){
+      lineEl.innerHTML = prefix + item.cmd.slice(0, ci) + '<span class="caret"></span>';
+      ci++;
+      if(ci <= item.cmd.length){
+        setTimeout(typeChar, 38);
+      } else {
+        lineEl.innerHTML = prefix + item.cmd;
+        li++;
+        setTimeout(typeNext, 200);
+      }
+    }
+    typeChar();
+  }
+  typeNext();
+</script>
+
+</body>
+</html>
