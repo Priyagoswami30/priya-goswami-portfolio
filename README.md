@@ -1,6 +1,6 @@
 # Priya Goswami — Portfolio
 
-Deployed link: 
+Deployed link: https://priya-goswami-portfolio.onrender.com
 
 ## 💻 About
 
